@@ -4,9 +4,10 @@
 int main(int argc, char **argv)
 {
     int i;
-    int first_num = 0;
-    int second_num = 1;
-    int third_num = 0;
+    int *array = malloc(sizeof(int) * 3);
+    array[0] = 0;
+    array[1] = 1;
+    array[2] = 0;
 
     if (argc < 2)
     {
@@ -14,16 +15,20 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    printf("0. %d\n", first_num);
-    printf("1. %d\n", second_num);
-    
-    for (i = 2; i <= atoi(argv[1]); i++)
+    for (i = 0; i <= atoi(argv[1]); i++)
     {
-        third_num = first_num + second_num;
-        printf("%d. %d\n", i, third_num);
-        first_num = second_num;
-        second_num = third_num;
+        if (i == 0 || i == 1)
+        {
+            printf("%d. %d\n", i, array[i]);
+        }
+        else
+        {
+            array[2] = array[0] + array[1];
+            printf("%d. %d\n", i, array[2]);
+            array[0] = array[1];
+            array[1] = array[2];
+        }
     }
-
+    free(array);
     return 0;
 }
